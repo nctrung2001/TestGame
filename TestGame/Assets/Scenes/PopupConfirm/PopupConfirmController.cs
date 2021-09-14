@@ -17,6 +17,6 @@ public class PopupConfirmController : Controller
     private void Start()
     {
         btnYes.onClick.AddListener(() => Manager.Load(HomeController.HOME_SCENE_NAME));
-        btnNo.onClick.AddListener(() => Manager.Load(GamePlayController.GAMEPLAY_SCENE_NAME));
+        btnNo.onClick.AddListener(() => Manager.Close());
     }
 }

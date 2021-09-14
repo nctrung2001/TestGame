@@ -16,6 +16,6 @@ public class SettingController : Controller
 
     private void Start()
     {
-        btnBack.onClick.AddListener(() => Manager.Load(HomeController.HOME_SCENE_NAME));
+        btnBack.onClick.AddListener(() => Manager.Close());
     }
 }

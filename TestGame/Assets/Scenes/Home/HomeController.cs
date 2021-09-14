@@ -16,7 +16,7 @@ public class HomeController : Controller
 
     private void Start()
     {
-        btnSetting.onClick.AddListener(() => Manager.Load(SettingController.SETTING_SCENE_NAME));
+        btnSetting.onClick.AddListener(() => Manager.Add(SettingController.SETTING_SCENE_NAME));
         btnPlay.onClick.AddListener(() => Manager.Load(GamePlayController.GAMEPLAY_SCENE_NAME));
     }
 }

@@ -18,7 +18,7 @@ public class GamePlayController : Controller
 
     private void Start()
     {
-        btnBack.onClick.AddListener(() => Manager.Load(PopupConfirmController.POPUPCONFIRM_SCENE_NAME));
+        btnBack.onClick.AddListener(() => Manager.Add(PopupConfirmController.POPUPCONFIRM_SCENE_NAME));
         btnWin.onClick.AddListener(() =>
         {
             level ++;
