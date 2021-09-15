@@ -18,4 +18,10 @@ public class SettingController : Controller
     {
         btnBack.onClick.AddListener(() => Manager.Close());
     }
+
+    public override void OnKeyBack()
+    {
+        base.OnKeyBack();
+        PlayerPrefs.Save();
+    }
 }
