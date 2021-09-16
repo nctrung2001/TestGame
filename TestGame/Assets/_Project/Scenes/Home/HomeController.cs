@@ -7,7 +7,7 @@ using System;
 public class HomeController : Controller
 {
     public const string HOME_SCENE_NAME = "Home";
-    [SerializeField] private Button btnSetting, btnPlay;
+    [SerializeField] private Button btnSetting, btnPlay, btnGenLevel;
 
     public override string SceneName()
     {
@@ -19,5 +19,6 @@ public class HomeController : Controller
         AudioManager.Instance.PlayBgm("THEME_MUSIC_1");
         btnSetting.onClick.AddListener(() => Manager.Add(SettingController.SETTING_SCENE_NAME));
         btnPlay.onClick.AddListener(() => Manager.Load(GamePlayController.GAMEPLAY_SCENE_NAME));
+        btnGenLevel.onClick.AddListener(() => Manager.Load(GenLevelController.GENLEVEL_SCENE_NAME));
     }
 }

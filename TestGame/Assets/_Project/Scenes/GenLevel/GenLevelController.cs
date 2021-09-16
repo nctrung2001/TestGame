@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine.UI;
 using SS.View;
 using TMPro;
@@ -10,9 +9,10 @@ using TMPro;
 public class GenLevelController : Controller
 {
     public const string GENLEVEL_SCENE_NAME = "GenLevel";
-    [SerializeField] private Button btnGen;
+    [SerializeField] private Button btnGen, btnBack;
     [SerializeField] private TMP_InputField inpId, inpName, inpDescription;
     LevelData levelData;
+    string levelName;
     //Dictionary<string,LevelData> levelList;
 
     public override string SceneName()
@@ -30,18 +30,18 @@ public class GenLevelController : Controller
             levelData.name = inpName.text;
             levelData.description = inpDescription.text;
             //levelList.Add("level", levelData);
-            string jsonText = JsonUtility.ToJson(levelData, true);
-            SaveLevelData(jsonText);
-            Debug.Log(jsonText);
+            SaveLevelData(levelData);
         });
+        btnBack.onClick.AddListener(()=> Manager.Load(HomeController.HOME_SCENE_NAME));
     }
 
-    public void SaveLevelData(string jsonText)
+    public void SaveLevelData(LevelData levelData)
     {
-        string path = @"D:/Unity/Project/levelData.json";
+        levelName = levelData.name;
+        string jsonText = JsonUtility.ToJson(levelData, true);
+        Debug.Log(jsonText);
+        string path = @"D:/Unity/Project/DataTest/"+levelName+".json";
         File.WriteAllText(path, jsonText);
-        FileStream stream = new FileStream(path, FileMode.Create);
-        stream.Close();
     }
 
     // public static string GetFilePath(int storyId, int orderInStory)
