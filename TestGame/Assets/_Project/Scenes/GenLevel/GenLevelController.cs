@@ -40,7 +40,8 @@ public class GenLevelController : Controller
         levelName = levelData.name;
         string jsonText = JsonUtility.ToJson(levelData, true);
         Debug.Log(jsonText);
-        string path = @"D:/Unity/Project/DataTest/"+levelName+".json";
+        string path = Path.Combine(Application.dataPath, $"Resources/DataTest/{levelName}.json");
+        //Debug.Log(path);
         File.WriteAllText(path, jsonText);
     }
 

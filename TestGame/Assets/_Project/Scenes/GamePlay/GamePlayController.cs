@@ -21,24 +21,24 @@ public class GamePlayController : Controller
     }
     void Awake()
     {
-        if(PlayerPrefs.GetString("levelName") == null || PlayerPrefs.GetString("levelName") == "" )
+        if(PlayerPrefs.GetString(Const.LEVELNAME) == null || PlayerPrefs.GetString(Const.LEVELNAME) == "" )
         {
             levelName = "level1";
         }
         else
         {
-            levelName = PlayerPrefs.GetString("levelName");
+            levelName = PlayerPrefs.GetString(Const.LEVELNAME);
         }
     }
 
     private void Start()
     {
         levelData = new LevelData();
-        string path = "D:/Unity/Project/DataTest/" + levelName + ".json";
+        string path = Path.Combine(Application.dataPath, $"Resources/DataTest/{levelName}.json");
         string json = File.ReadAllText(path);
         levelData = JsonUtility.FromJson<LevelData>(json);
         txtLevel.text = "Level "+levelData.id;
-        PlayerPrefs.SetString("levelName",levelName);
+        PlayerPrefs.SetString(Const.LEVELNAME,levelName);
         btnBack.onClick.AddListener(() => Manager.Add(PopupConfirmController.POPUPCONFIRM_SCENE_NAME));
         btnWin.onClick.AddListener(() =>DebugGameLevel());
     }
@@ -46,22 +46,21 @@ public class GamePlayController : Controller
     public void DebugGameLevel()
     {
         levelName = inpLevel.text;
-        string path = @"D:/Unity/Project/DataTest";
+        string path = Path.Combine(Application.dataPath, $"Resources/DataTest");
+        
         DirectoryInfo d = new DirectoryInfo(path);
         foreach (var file in d.GetFiles("*.json"))
         {
             if(levelName+".json" == file.Name)
             {
                 LoadLevelData();
-                PlayerPrefs.SetString("levelName",levelName);
             }
         }
     }
 
     public void LoadLevelData()
     {
-        PlayerPrefs.SetString("levelName",levelName);
-        string path = "D:/Unity/Project/DataTest/" + levelName + ".json";
+        string path = Path.Combine(Application.dataPath, $"Resources/DataTest/{levelName}.json");
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
@@ -70,6 +69,7 @@ public class GamePlayController : Controller
             Debug.Log("ID: "+levelData.id);
             Debug.Log("name: "+levelData.name);
             Debug.Log("description: "+levelData.description);  
+            PlayerPrefs.SetString(Const.LEVELNAME,levelName);
         }
         else
         {
