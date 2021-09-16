@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,10 +34,14 @@ public class GamePlayController : Controller
     private void Start()
     {
         levelData = new LevelData();
+        
+        //Cần sửa đường dẫn, phải dùng đường dẫn động để máy nào cũng chạy được. Đoạn code này sẽ ko hoạt động ở máy khác
         string path = "D:/Unity/Project/DataTest/" + levelName + ".json";
         string json = File.ReadAllText(path);
         levelData = JsonUtility.FromJson<LevelData>(json);
         txtLevel.text = "Level "+levelData.id;
+
+        //Khi get key player pref không truyền string kiểu này. Set biến tĩnh trong một static class nào đó để những chỗ khác cần đến key này sẽ dùng lại
         PlayerPrefs.SetString("levelName",levelName);
         btnBack.onClick.AddListener(() => Manager.Add(PopupConfirmController.POPUPCONFIRM_SCENE_NAME));
         btnWin.onClick.AddListener(() =>DebugGameLevel());
