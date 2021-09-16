@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/PopupConfirm/PopupConfirm.unity
     guid: fc12ed5d3c8583e46bf0b294e11c532a
+  - enabled: 1
+    path: Assets/_Project/Scenes/GenLevel/GenLevel.unity
+    guid: 6fe9f58796dd45c459f8f2f089de2445
   m_configObjects: {}

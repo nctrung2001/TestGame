@@ -29,21 +29,12 @@ public class GamePlayController : Controller
         levelData.name = "Level 1";
         levelData.description = "Nothing here";
 
-        string json = JsonUtility.ToJson(levelData);
+        string json = JsonUtility.ToJson(levelData, true);
         LevelData levelLoaded = JsonUtility.FromJson<LevelData>(json);
-
-        Debug.Log("id: "+levelData.id);
-        Debug.Log("name: " + levelData.name);
-        Debug.Log("description: " + levelData.description);
-
-        Debug.Log(json);
-        Debug.Log("id: " + levelLoaded.id);
-        Debug.Log("name: " + levelLoaded.name);
-        Debug.Log("description: " + levelLoaded.description);
+        txtLevel.text = "Level: " +levelLoaded.id;
     }
 
     private void Update()
     {
-        //txtLevel.text = "Level: ";
     }
 }
