@@ -38,11 +38,14 @@ public class GenLevelController : Controller
     public void SaveLevelData(LevelData levelData)
     {
         levelName = levelData.name;
+#if UNITY_EDITOR
         string jsonText = JsonUtility.ToJson(levelData, true);
-        Debug.Log(jsonText);
         string path = Path.Combine(Application.dataPath, $"Resources/DataTest/{levelName}.json");
         //Debug.Log(path);
         File.WriteAllText(path, jsonText);
+#else
+        Debug.LogError("Can't save json data on mobile");
+#endif
     }
 
     // public static string GetFilePath(int storyId, int orderInStory)

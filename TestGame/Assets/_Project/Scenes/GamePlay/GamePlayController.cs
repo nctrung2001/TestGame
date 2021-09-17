@@ -34,9 +34,9 @@ public class GamePlayController : Controller
     private void Start()
     {
         levelData = new LevelData();
-        string path = Path.Combine(Application.dataPath, $"Resources/DataTest/{levelName}.json");
-        string json = File.ReadAllText(path);
-        levelData = JsonUtility.FromJson<LevelData>(json);
+        var json = Resources.Load<TextAsset>($"DataTest/{levelName}");
+        levelData = JsonUtility.FromJson<LevelData>(json.text);
+        
         txtLevel.text = "Level "+levelData.id;
         PlayerPrefs.SetString(Const.LEVELNAME,levelName);
         btnBack.onClick.AddListener(() => Manager.Add(PopupConfirmController.POPUPCONFIRM_SCENE_NAME));
@@ -46,34 +46,40 @@ public class GamePlayController : Controller
     public void DebugGameLevel()
     {
         levelName = inpLevel.text;
-        string path = Path.Combine(Application.dataPath, $"Resources/DataTest");
+        // string path = Path.Combine(Application.dataPath, $"Resources/DataTest");
         
-        DirectoryInfo d = new DirectoryInfo(path);
-        foreach (var file in d.GetFiles("*.json"))
+        // DirectoryInfo d = new DirectoryInfo(path);
+        foreach (var file in Resources.LoadAll("DataTest", typeof(TextAsset)))
         {
-            if(levelName+".json" == file.Name)
+            if(levelName == file.name)
             {
                 LoadLevelData();
             }
         }
     }
 
+    //Load text from a JSON file (Assets/Resources/Text/jsonFile01.json)
+        //var jsonTextFile = Resources.Load<TextAsset>("Text/jsonFile01");
+
     public void LoadLevelData()
     {
-        string path = Path.Combine(Application.dataPath, $"Resources/DataTest/{levelName}.json");
-        if (File.Exists(path))
-        {
-            string json = File.ReadAllText(path);
-            levelData = JsonUtility.FromJson<LevelData>(json);
+        //string path = Path.Combine(Application.dataPath, $"Resources/DataTest/{levelName}.json");
+        //if (File.Exists(path))
+        //{
+            // string json = File.ReadAllText(path);
+
+            var json = Resources.Load<TextAsset>($"DataTest/{levelName}");
+            levelData = JsonUtility.FromJson<LevelData>(json.text);
+
             txtLevel.text = "Level "+levelData.id;
             Debug.Log("ID: "+levelData.id);
             Debug.Log("name: "+levelData.name);
             Debug.Log("description: "+levelData.description);  
             PlayerPrefs.SetString(Const.LEVELNAME,levelName);
-        }
-        else
-        {
-            Debug.Log("File not found");
-        }
+        //}
+        // else
+        // {
+        //     Debug.Log("File not found");
+        // }
     }
 }
